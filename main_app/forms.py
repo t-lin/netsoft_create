@@ -1,4 +1,7 @@
+#from snowpenguin.django.recaptcha2.fields import ReCaptchaField
+#from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 from django import forms
+
 
 class SignInForm(forms.Form):
     username = forms.CharField(max_length=100)

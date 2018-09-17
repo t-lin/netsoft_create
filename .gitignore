@@ -3,3 +3,4 @@ env/
 include/
 lib/
 pip-selfcheck.json
+netsoft_create/settings.py

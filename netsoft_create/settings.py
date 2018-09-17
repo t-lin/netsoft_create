@@ -22,6 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'h)b(men$o&o+y+m)@^=ln*&j+q%$mqa77@&5cu-xgrt3*$7m=q'
 
+RECAPTCHA_PUBLIC_KEY = '6Le_lXAUAAAAAPoVrwjDFLGHDnClamTlcnzzXN5d'
+RECAPTCHA_PRIVATE_KEY = '6Le_lXAUAAAAAGI0ajDg9W9WYEAOYvmozzKVWN08'
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -38,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main_app'
+    'main_app',
+    'snowpenguin.django.recaptcha2'
 ]
 
 MIDDLEWARE = [

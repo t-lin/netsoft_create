@@ -1,7 +1,6 @@
 {% extends 'base.html' %}                                                                                                                                                                                          
 {% block content %}
 {% load static %}  
-
   <div class="mdl-grid">
     <div class="mdl-card__supporting-text mdl-grid">
       <h3 class="mdl-color-text--primary" style="line-height:32px;">INTERNSHIP PORTAL</h3>
@@ -49,7 +48,9 @@
                 <label class="mdl-textfield__label">{{ field.label_tag }}</label>
               </div>
             </div>
-            {% endfor %} 
+            {% endfor %}
+            <script src='https://www.google.com/recaptcha/api.js'></script>
+            <div class="g-recaptcha" data-sitekey="6Le_lXAUAAAAAPoVrwjDFLGHDnClamTlcnzzXN5d"></div>
             <div class="mdl-card__actions mdl-card--border">
               <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Create Account</button>
             </div>
