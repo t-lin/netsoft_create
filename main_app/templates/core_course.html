@@ -1,0 +1,24 @@
+{% extends 'base.html' %}                                                                                                                                                                                          
+{% block content %}
+{% load static %}   
+  <div class="mdl-grid" style="margin-bottom: 200px;">
+    <div class="mdl-card__supporting-text mdl-grid">
+      <h3 class="mdl-color-text--primary">Current Core Courses</h3>
+      <div class="mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+        <h6 id="index_h6s">To access the web pages for the current core courses, please login to the following Piazza pages:</h6>
+        <div class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            <i class="material-icons">chevron_right</i>
+            <span><a target="_blank" href="https://piazza.com/uwaterloo.ca/winter2018/cs798001/home">Network Softwarization: Principles and Foundations</a></span>
+          </span>
+        </div>
+        <div class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            <i class="material-icons">chevron_right</i>
+            <span><a target="_blank" href="https://piazza.com/uwaterloo.ca/winter2018/cs798002/home">Network Softwarization: Technologies and Enablers</a></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}                                                                                                                                                                                          
+{% block content %}
+{% load static %}   
+        <div class="mdl-grid">
+          <div class="mdl-card__supporting-text mdl-grid">
+            <h3 class="mdl-color-text--primary">Current Internship Openings</h3>
+            <table class="mdl-data-table mdl-js-data-table" id="postings_table">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric">Title</th>
+                  <th class="mdl-data-table__cell--non-numeric">Company</th>
+                  <th class="mdl-data-table__cell--non-numeric">Duration</th>
+                  <th class="mdl-data-table__cell--non-numeric">Start Date</th>
+                </tr>
+              </thead>
+              <tbody>
+            </table>
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-card__supporting-text mdl-grid">
+            <h6 id="index_h6s">Students registered in the NetSoft program can apply for internships by login in to the <a href="./under_construction.html">Internship Portal</a></h6>
+          </div>
+        </div>
+{% endblock %}
