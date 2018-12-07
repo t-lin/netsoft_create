@@ -500,3 +500,14 @@ input[type="checkbox"]:checked ~ label > ul {
   max-width: 100%;
 
 }
+
+#my_footer{
+  color:white;  
+  /*
+  position: absolute;
+  */
+
+  width: 100%;
+  bottom: 0;
+
+}

@@ -64,19 +64,6 @@
               <a href="/"><i class="material-icons" id="home_button">home</i></a>
             </div>
             <div class="dropdown">
-              <input id="checkbox1" type="checkbox" name="checkbox" checked />
-              <label for="checkbox1" id="people_menu">
-                  <div class="drop-ttl">
-                    <span>People<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i></span>
-                  </div>
-                  <ul id="people_items">
-                    <li><a href="./faculty.html">Faculty</a></li>
-                    <li><a href="./partners.html">Partners</a></li>
-                    <li><a href="./committee.html">Program Committee</a></li>
-                  </ul>
-              </label>
-            </div>
-            <div class="dropdown">
               <input id="checkbox2" type="checkbox" name="checkbox" checked />
               <label for="checkbox2" id="program_menu">
                   <div class="drop-ttl">
@@ -87,6 +74,19 @@
                     <li><a href="./program.html#internships">Internships</a></li>
                     <li><a href="./program.html#professional_development">Professional Development</a></li>
                     <li><a href="./program.html#research">Research</a></li>
+                  </ul>
+              </label>
+            </div>
+            <div class="dropdown">
+              <input id="checkbox1" type="checkbox" name="checkbox" checked />
+              <label for="checkbox1" id="people_menu">
+                  <div class="drop-ttl">
+                    <span>People<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i></span>
+                  </div>
+                  <ul id="people_items">
+                    <li><a href="./faculty.html">Faculty</a></li>
+                    <li><a href="./partners.html">Partners</a></li>
+                    <li><a href="./committee.html">Program Committee</a></li>
                   </ul>
               </label>
             </div>
@@ -111,26 +111,26 @@
       <div class="mdl-layout__drawer mdl-layout--small-screen-only">
         <span class="mdl-layout-title">NetSoft CREATE</span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" id="people_drawer">
-            <span>People<i class="material-icons">arrow_drop_down</i></span>
-          </a>
           <a class="mdl-navigation__link" id="program_drawer">
             <span>Program<i class="material-icons">arrow_drop_down</i></span>
+          </a>
+          <a class="mdl-navigation__link" id="people_drawer">
+            <span>People<i class="material-icons">arrow_drop_down</i></span>
           </a>
           <a class="mdl-navigation__link" id="current_students_drawer">
             <span>Current Students<i class="material-icons">arrow_drop_down</i></span>
           </a>
         </nav>
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="people_drawer">
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./faculty.html">Faculty</a></li>
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./partners.html">Partners</a></li>
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./committee.html">Program Committee</a></li>
-        </ul>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="program_drawer">
           <li class="mdl-menu__item"><a class="dropdown-item" href="./program.html#core_courses">Core Courses</a></li>
           <li class="mdl-menu__item"><a class="dropdown-item" href="./program.html#internships">Internships</a></li>
           <li class="mdl-menu__item"><a class="dropdown-item" href="./program.html#professional_development">Professional Development</a></li>
           <li class="mdl-menu__item"><a class="dropdown-item" href="./program.html#research">Research</a></li>
+        </ul>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="people_drawer">
+          <li class="mdl-menu__item"><a class="dropdown-item" href="./faculty.html">Faculty</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="./partners.html">Partners</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="./committee.html">Program Committee</a></li>
         </ul>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="current_students_drawer">
           <li class="mdl-menu__item"><a class="dropdown-item" href="./core_course.html">Current Core Courses</a></li>
@@ -143,20 +143,20 @@
       <main class="mdl-layout__content">
         {% block content %}
         {% endblock %}
-        <!------------------- RAJ: START OF FOOTER INFORMATION -------------------------->
-        <footer class="mdl-mega-footer" style="color:white;">                                                                                                                                                              
-          <div class="mdl-mega-footer--middle-section">
-            <div class="mdl-mega-footer__left-section">
-              <h6 class="title"> Sponsored By:<img height="75" src="{% static 'main_app/img/Logos-NSERC.png' %}"><p>© NSERC CREATE on Network Softwarization</p></h6>
-            </div>
-            <div class="mdl-mega-footer__right-section">
-              <h6>Program Coordinator: Vladimiro Cirillo</h6>
-              <h6> <a href="mailto:v.cirillo@utoronto.ca">
-              <button class = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ><i class = "material-icons">mail</i></button> v.cirillo@utoronto.ca</a></h6>
-            </div>
-          </div>
-        </footer>
       </main>
+      <!------------------- RAJ: START OF FOOTER INFORMATION -------------------------->
+      <footer class="mdl-mega-footer" id="my_footer">                                                                                                                                                              
+        <div class="mdl-mega-footer--middle-section">
+          <div class="mdl-mega-footer__left-section">
+            <h6 class="title"> Sponsored By:<img height="75" src="{% static 'main_app/img/Logos-NSERC.png' %}"><p>© NSERC CREATE on Network Softwarization</p></h6>
+          </div>
+          <div class="mdl-mega-footer__right-section">
+            <h6>Program Coordinator: Vladimiro Cirillo</h6>
+            <h6> <a href="mailto:v.cirillo@utoronto.ca">
+            <button class = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ><i class = "material-icons">mail</i></button> v.cirillo@utoronto.ca</a></h6>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
