@@ -1,0 +1,124 @@
+{% extends 'base.html' %}                                                                                                                                                                                          
+{% block content %}
+{% load static %}   
+  <div class="mdl-grid">
+    <div class="mdl-grid">
+      <div class="mdl-card__supporting-text mdl-grid">
+        <h3 class="mdl-color-text--primary" id="cheesy_line" style="line-height: 32px;">Internship Portal</h3>
+      </div>
+      <div class="mdl-card__supporting-text mdl-grid">
+        <h3 class="mdl-color-text--primary" style="line-height: 32px;">Profile</h3>
+      </div>
+      <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
+        <div class="mdl-card__supporting-text">
+          
+          <form method="post" action="{% url 'save-profile' %}">
+            {% csrf_token %}
+            
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text"/>
+                  <label class="mdl-textfield__label">First Name</label>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text"/>
+                  <label class="mdl-textfield__label">Last Name</label>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--6-col">  
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <select class="mdl-textfield__input" name="{{ ProfileForm.university.html_name }}">
+                    {% for choice in ProfileForm.university %}
+                      {{ choice }}
+                    {% endfor %}
+                  </select>
+                  <label class="mdl-textfield__label" for="university">University</label>
+                </div>    
+              </div>
+              <div class="mdl-cell mdl-cell--3-col">
+                <p> Degree: </p>
+              </div>
+              {% for radio in ProfileForm.degree %}
+                <div class="mdl-cell mdl-cell--3-col">
+                  {{ radio }}
+                </div>
+              {% endfor %}
+              <div class="mdl-cell mdl-cell--3-col">
+                <p> Courses Taken: </p>
+              </div>
+              {% for course in ProfileForm.courses %}
+                <div class="mdl-cell mdl-cell--3-col">
+                  {{ course }}
+                </div>
+              {% endfor %}
+              <div class="mdl-cell mdl-cell--3-col"></div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="save_profile">SAVE</button>
+            </div>
+            {% if ProfileForm.errors %}
+              {% for field in ProfileForm %}
+                {% for error in field.errors %}
+                  <strong>{{ field.label_tag }} {{ error }}</strong>
+                {% endfor %}
+              {% endfor %}
+            {% endif %} 
+          </form>
+        </div>
+      </div>
+      <div class="mdl-card__supporting-text mdl-grid">
+        <h3 class="mdl-color-text--primary" style="line-height: 32px;">Resume</h3>
+      </div>
+      <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
+        <div class="mdl-card__supporting-text">
+          <!--<h4 class="mdl-color-text--accent">Network Softwarization: Principles and Foundations (Theory & Design)</h4>-->
+          
+          <form method="post" action="{% url 'upload-resume' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <input type="file" name="resume" id="resume" />
+            <p>{{ UploadResumeForm.resume.label_tag }} {{ UploadResumeForm.resume.help_text }}</p>
+            {% if form.errors %}
+              {% for field in form %}
+                {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                  </div>
+                {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+                </div>
+              {% endfor %}
+            {% endif %} 
+            <div class="mdl-card__actions mdl-card--border">
+              <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="upload">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      {% if resumes %}
+        <div class="mdl-card__supporting-text mdl-grid">
+          <h3 class="mdl-color-text--primary" style="line-height: 32px;">Uploaded Documents</h3>
+        </div>
+        <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
+          <div class="mdl-card__supporting-text">
+            <ul>
+              {% for resume in resumes %}
+                <li>
+                  {% csrf_token %}
+                  <a href="{{ resume.resume.url }}">{{ resume.resume.name }}</a>
+                  <button style="height: 20px;min-width: 20px;width: 20px;" class="mdl-button mdl-js-button mdl-button--fab  mdl-button--mini-fab mdl-button--primary" onclick="delete_resume(this)" id="{{ resume.resume.name }}"><i class="material-icons">remove</i></button>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endif %} 
+    </div>
+  </div>
+{% endblock %}

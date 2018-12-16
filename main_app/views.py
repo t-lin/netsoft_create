@@ -1,15 +1,19 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login as auth_login, logout
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
-
+from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
+from netsoft_create import settings
 from main_app.forms import *
-from main_app.util import *
+from main_app.models import *
+from django.contrib import messages
 
-import string
-from random import *
+import main_app.util as util
+import os
 
-# Create your views here.
+########## STATIC PAGES ##########
+
 def index(request):
     return render(request, 'index.html')
 
@@ -40,67 +44,139 @@ def technology_enablers(request):
 def under_construction(request):
     return render(request, 'under_construction.html')
 
-########## INTERNSHIP PORTAL STUFF
+
+########## INTERNSHIP PORTAL STUFF ##########
+
+@login_required
+def internship_profile(request):
+
+    resumes = Resume.objects.filter(username = request.user.username)
+
+    profile = Profile.objects.filter(username = request.user.username)
+
+    print(profile.values())
+
+    return_dict = {'UploadResumeForm': UploadResumeForm, 'resumes': resumes, 'ProfileForm': profile}
+    return render(request,'internship/profile.html', return_dict)
+
+@login_required
+@require_http_methods(["POST"])
+def save_profile(request):
+
+    form = ProfileForm(request.POST or None)
+    if form.is_valid():
+
+        tech_enablers = False
+        princ_foundations = False
+
+        if "technology_enablers" in request.POST.getlist("courses"):
+            tech_enablers = True
+
+        if "principles_foundations" in request.POST.getlist("courses"):
+            princ_foundations = True
+
+        new_profile = Profile(username = request.user.username,
+            first_name = form.cleaned_data.get("first_name"),
+            last_name = form.cleaned_data.get("last_name"),
+            university = form.cleaned_data.get("university"),
+            degree = form.cleaned_data.get("degree"),
+            technology_enablers = tech_enablers,
+            principles_foundations = princ_foundations
+        )
+
+        new_profile.save()
+
+        return HttpResponseRedirect("/internship/profile/")
+    else:
+        return render(request, 'internship/profile.html', {'ProfileForm': form})
+
+
+@login_required
+@require_http_methods(["POST"])
+def upload_resume(request):
+
+    form = UploadResumeForm(request.POST, request.FILES)
+    if form.is_valid():
+        newresume = Resume(resume = request.FILES['resume'], username = request.user.username)
+        newresume.save()
+
+        return HttpResponseRedirect("/internship/profile/")
+    else:
+        return render(request, 'internship/profile.html', {'form': form})
+
+
+@login_required
+@require_http_methods(["POST"])
+def delete_resume(request):
+
+    resume = request.POST['resume']
+
+    # remove the requested resumes to be deleted
+    resumes = Resume.objects.filter(resume = resume, username = request.user.username).delete()
+
+    file_location = settings.MEDIA_ROOT+'/'+resume
+    print(file_location)
+    if os.path.exists(file_location):
+      os.remove(file_location)
+
+    return HttpResponseRedirect("/internship/profile/")
+
 
 def signin(request):
 
     return_dict = {'signInForm': SignInForm, 'createAccountForm': CreateAccountForm}
 
+    if request.user.is_authenticated:
+        return HttpResponseRedirect("/internship/profile/")
+
+
     if request.method == "GET":
-        return render(request, 'registration/login.html', return_dict)
+        return render(request, 'login.html', return_dict)
     else:
         form = SignInForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            print("username: %s, password: %s" %(username,password))
             user = authenticate(username=username, password=password)
             if user is not None:
-                return HttpResponseRedirect("/")
+                if user.is_active:
+                    auth_login(request, user)
+                    return HttpResponseRedirect("/internship/profile/")
             else:
-                return_dict['errors'] = "Don't match. Try again!"
-                return render(request, 'registration/login.html', return_dict)
-
+                return_dict['errors'] = "Your Username and/or Password does not match! Please try again."
         else:
             return_dict['errors'] = "Invalid input. Try again!"
-            return render(request, 'registration/login.html', return_dict)
+
+        return render(request, 'login.html', return_dict)
+
+def signout(request):
+    logout(request)
+    return HttpResponseRedirect("/signin/")
+
 
 def signup(request):
 
     return_dict = {'signInForm': SignInForm, 'createAccountForm': CreateAccountForm}
 
     if request.method == "GET":
-        return render(request, 'registration/login.html', return_dict)
+        return render(request, 'login.html', return_dict)
 
     if request.method == 'POST':
 
         form = CreateAccountForm(request.POST)
         if form.is_valid():
-            first_name = form.cleaned_data.get('first_name')
-            last_name = form.cleaned_data.get('last_name')
-            email = form.cleaned_data.get('email')
 
-            username = first_name+"."+last_name
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            remote_ip = request.META['REMOTE_ADDR']
 
-            # generate password
-            characters = string.ascii_letters + string.punctuation  + string.digits
-            password =  "".join(choice(characters) for x in range(randint(8, 16)))
+            result = util.verify_recaptcha(recaptcha_response, remote_ip)
 
-            # create user
-            try:
-                user = User.objects.create_user(username, email, password)
-                user.first_name = first_name
-                user.last_name = last_name
-
-                print("first_name: %s, last_name: %s, email: %s, username: %s, password: %s" %(first_name, last_name, email, username,password))
-
-                user.save()
-            except Exception as e:
-                return_dict['errors'] = "Invalid input. Try again!"
-                return render(request, 'registration/login.html', return_dict)
-
+            # verify RECAPTCHAv2
+            if result["success"]:
+                return_dict["errors"] = util.create_user(form)
             else:
-                # Not really error, work on aesthetics (like diff. msgs with diff. dialogs later)
-                return_dict['errors'] = "Successfully created user!"
-                send_user_account_email(email,first_name, username,password)
-                return render(request, 'registration/login.html', return_dict)
+                return_dict["errors"] = "RECAPTCHAv2 Failed. Please don't be a Bot ... Zuckerberg"
+        else:
+            return_dict['errors'] = "Invalid input. Try again!"
+
+        return render(request, 'login.html', return_dict)

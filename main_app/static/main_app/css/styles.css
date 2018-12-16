@@ -511,3 +511,8 @@ input[type="checkbox"]:checked ~ label > ul {
   bottom: 0;
 
 }
+    
+#signout{
+    color: white;
+    font-size: 18px;
+}

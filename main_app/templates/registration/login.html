@@ -1,62 +1,51 @@
-{% extends 'base.html' %}                                                                                                                                                                                          
-{% block content %}
-{% load static %}  
-  <div class="mdl-grid">
-    <div class="mdl-card__supporting-text mdl-grid">
-      <h3 class="mdl-color-text--primary" style="line-height:32px;">INTERNSHIP PORTAL</h3>
-    </div>
 
-    {% if errors %}
-      <div class="mdl-card__supporting-text mdl-grid">
-        <h5>{{ errors }}</h5>
-      </div>
-    {% endif %}
-    
-    <div class="mdl-card__supporting-text mdl-grid">
-      <div class="mdl-cell mdl-cell--6-col">
-        <div class="mdl-card mdl-shadow--8dp" style="background-color:white;">
-          <form method="post" action="{% url 'signin' %}">
-            {% csrf_token %}
-            <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-              <h2 class="mdl-card__title-text">Login</h2>
-            </div>
-            {% for field in signInForm %}
-            <div class="mdl-card__supporting-text">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" name="{{ field.html_name}}" type="{{field.html_name}}"/>
-                <label class="mdl-textfield__label">{{ field.label_tag }}</label>
-              </div>
-            </div>
-            {% endfor %}
-            <div class="mdl-card__actions mdl-card--border">
-              <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="login">Sign In</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="mdl-cell mdl-cell--6-col">
-        <div class="mdl-card mdl-shadow--8dp" style="background-color:white;">
-          <form method="POST" action="{% url 'signup' %}">
-            {% csrf_token %}
-            <div class="mdl-card__title mdl-color--accent mdl-color-text--white">
-              <h2 class="mdl-card__title-text">Create Account</h2>
-            </div>
-            {% for field in createAccountForm %}
-            <div class="mdl-card__supporting-text">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" name="{{ field.html_name}}" type="{{field.html_name}}"/>
-                <label class="mdl-textfield__label">{{ field.label_tag }}</label>
-              </div>
-            </div>
-            {% endfor %}
-            <script src='https://www.google.com/recaptcha/api.js'></script>
-            <div class="g-recaptcha" data-sitekey="6Le_lXAUAAAAAPoVrwjDFLGHDnClamTlcnzzXN5d"></div>
-            <div class="mdl-card__actions mdl-card--border">
-              <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Create Account</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-   </div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<style>
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+<body>
+
+<div>
+  <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form.username.label_tag }}
+    {{ form.username }}
+
+    {{ form.password.label_tag }}
+    {{ form.password }}
+
+    {{ form.errors }}
+  
+    <input type="submit" value="Login">
+  </form>
+</div>
+
+</body>
+</html>

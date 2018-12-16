@@ -70,10 +70,10 @@
                     <span>Program<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i></span>
                   </div>
                   <ul id="program_items">
-                    <li><a href="./program.html#core_courses">Core Courses</a></li>
-                    <li><a href="./program.html#internships">Internships</a></li>
-                    <li><a href="./program.html#professional_development">Professional Development</a></li>
-                    <li><a href="./program.html#research">Research</a></li>
+                    <li><a href="/program#core-courses">Core Courses</a></li>
+                    <li><a href="/program#internships">Internships</a></li>
+                    <li><a href="/program#professional-development">Professional Development</a></li>
+                    <li><a href="/program#research">Research</a></li>
                   </ul>
               </label>
             </div>
@@ -84,9 +84,9 @@
                     <span>People<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i></span>
                   </div>
                   <ul id="people_items">
-                    <li><a href="./faculty.html">Faculty</a></li>
-                    <li><a href="./partners.html">Partners</a></li>
-                    <li><a href="./committee.html">Program Committee</a></li>
+                    <li><a href="/faculty/">Faculty</a></li>
+                    <li><a href="/partners/">Partners</a></li>
+                    <li><a href="/committee/">Program Committee</a></li>
                   </ul>
               </label>
             </div>
@@ -97,12 +97,22 @@
                     <span>Current Students<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i></span>
                   </div>
                   <ul id="curr_studs_items">
-                    <li><a href="./core_course.html">Current Core Courses</a></li>
-                    <li><a href="./internship_postings.html">Internship Opportunities</a></li>
+                    <li><a href="/core-courses/">Current Core Courses</a></li>
+                    <li><a href="/internship-postings/">Internship Opportunities</a></li>
+                    <li><a href="/signin/">Portal Sign in</a></li>
                   </ul>
               </label>
             </div>
           </nav>
+          <div class="mdl-layout-spacer"></div>
+          {% if user.is_authenticated %}
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <div class="dropdown">
+              <a href="/signout/" id="home_button">Sign out</a>
+            </div>
+          </nav>
+            <!--<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="signout"><a href="/signout/">Sign out</button>-->
+          {% endif %}
           <div class="mdl-layout-spacer"></div>
           <img class="mdl-layout--large-screen-only" id="nserc_banner_logo" src="{% static 'main_app/img/Logos-NSERC.png' %}" /> 
         </div>
@@ -122,19 +132,19 @@
           </a>
         </nav>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="program_drawer">
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./program.html#core_courses">Core Courses</a></li>
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./program.html#internships">Internships</a></li>
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./program.html#professional_development">Professional Development</a></li>
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./program.html#research">Research</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/program#core-courses">Core Courses</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/program#internships">Internships</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/program#professional-development">Professional Development</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/program#research">Research</a></li>
         </ul>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="people_drawer">
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./faculty.html">Faculty</a></li>
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./partners.html">Partners</a></li>
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./committee.html">Program Committee</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/faculty/">Faculty</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/partners/">Partners</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/committee/">Program Committee</a></li>
         </ul>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="current_students_drawer">
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./core_course.html">Current Core Courses</a></li>
-          <li class="mdl-menu__item"><a class="dropdown-item" href="./internship_postings.html">Internship Opportunities</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/core-courses/">Current Core Courses</a></li>
+          <li class="mdl-menu__item"><a class="dropdown-item" href="/internship-postings/">Internship Opportunities</a></li>
         </ul>
       </div>
 

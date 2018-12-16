@@ -27,3 +27,19 @@ $(document).ready(function(){
     });
 
 });
+
+function delete_resume($this){
+    
+    var resume = $this.id;
+    var csrf = document.getElementById($this.id).parentNode.firstChild.nextElementSibling.value;
+    console.log(csrf);
+    
+    console.log("data: " + resume)
+    $.post( "/delete-resume/",{ 'resume' : resume, 'csrfmiddlewaretoken': csrf },function(json) {
+      alert("success");
+      location.reload();
+    })
+      .fail(function(){
+      alert("failed");
+    })
+};
