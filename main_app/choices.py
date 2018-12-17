@@ -1,14 +1,14 @@
 UNIVERSITY_CHOICES = (
-    ("toronto", "University of Toronto"),
-    ("waterloo", "University of Waterloo"),
-    ("ets", "ETS"),
-    ("laval", "Laval University")
+    ("University of Toronto", "University of Toronto"),
+    ("University of Waterloo", "University of Waterloo"),
+    ("ETS", "ETS"),
+    ("Laval University", "Laval University")
 )
 
 DEGREE_CHOICES = (
-    ("MEng", "MEng."),
-    ("MASc", "MASc."),
-    ("Phd", "Phd.")
+    ("MEng.", "MEng."),
+    ("MASc.", "MASc."),
+    ("Phd.", "Phd.")
 )
 
 COURSES_CHOICES = (

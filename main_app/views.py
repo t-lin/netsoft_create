@@ -52,16 +52,19 @@ def internship_profile(request):
 
     resumes = Resume.objects.filter(username = request.user.username)
 
-    profile = Profile.objects.filter(username = request.user.username)
+    print(resumes.values())
+    profile = Profile.objects.filter(username = request.user.username).values()
+    print(profile)
 
-    print(profile.values())
-
-    return_dict = {'UploadResumeForm': UploadResumeForm, 'resumes': resumes, 'ProfileForm': profile}
+    return_dict = {'UploadResumeForm': UploadResumeForm, 'resumes': resumes, 'ProfileForm': ProfileForm, 'profile': profile}
     return render(request,'internship/profile.html', return_dict)
 
 @login_required
 @require_http_methods(["POST"])
 def save_profile(request):
+
+    for key in request.POST:
+        print("%s: %s" %(key, request.POST[key]))
 
     form = ProfileForm(request.POST or None)
     if form.is_valid():
@@ -69,26 +72,39 @@ def save_profile(request):
         tech_enablers = False
         princ_foundations = False
 
-        if "technology_enablers" in request.POST.getlist("courses"):
+        if "technologies_enablers" in request.POST.getlist("courses"):
             tech_enablers = True
 
         if "principles_foundations" in request.POST.getlist("courses"):
             princ_foundations = True
 
-        new_profile = Profile(username = request.user.username,
-            first_name = form.cleaned_data.get("first_name"),
-            last_name = form.cleaned_data.get("last_name"),
-            university = form.cleaned_data.get("university"),
-            degree = form.cleaned_data.get("degree"),
-            technology_enablers = tech_enablers,
-            principles_foundations = princ_foundations
-        )
+        profile = Profile.objects.filter(username = request.user.username)
+        if profile:
 
-        new_profile.save()
+            Profile.objects.filter(username = request.user.username).update(
+                first_name = form.cleaned_data.get("first_name"),
+                last_name = form.cleaned_data.get("last_name"),
+                university = form.cleaned_data.get("university"),
+                degree = form.cleaned_data.get("degree"),
+                technology_enablers = tech_enablers,
+                principles_foundations = princ_foundations
+            )
+        else:
 
+            new_profile = Profile(username = request.user.username,
+                first_name = form.cleaned_data.get("first_name"),
+                last_name = form.cleaned_data.get("last_name"),
+                university = form.cleaned_data.get("university"),
+                degree = form.cleaned_data.get("degree"),
+                technology_enablers = tech_enablers,
+                principles_foundations = princ_foundations
+            )
+
+            new_profile.save()
         return HttpResponseRedirect("/internship/profile/")
     else:
-        return render(request, 'internship/profile.html', {'ProfileForm': form})
+        curr_profile = Profile.objects.filter(username = request.user.username).values()
+        return render(request, 'internship/profile.html', {'ProfileForm': form, 'profile': curr_profile})
 
 
 @login_required

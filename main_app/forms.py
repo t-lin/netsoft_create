@@ -30,4 +30,4 @@ class ProfileForm(forms.Form):
     courses = forms.MultipleChoiceField(
         choices=COURSES_CHOICES,
         widget=forms.CheckboxSelectMultiple(),
-        required=True)
+        required=False)

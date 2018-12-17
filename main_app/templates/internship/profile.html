@@ -6,67 +6,156 @@
       <div class="mdl-card__supporting-text mdl-grid">
         <h3 class="mdl-color-text--primary" id="cheesy_line" style="line-height: 32px;">Internship Portal</h3>
       </div>
-      <div class="mdl-card__supporting-text mdl-grid">
-        <h3 class="mdl-color-text--primary" style="line-height: 32px;">Profile</h3>
-      </div>
-      <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
-        <div class="mdl-card__supporting-text">
-          
-          <form method="post" action="{% url 'save-profile' %}">
-            {% csrf_token %}
+      {% if profile %}
+        <div class="mdl-card__supporting-text mdl-grid">
+          <h3 class="mdl-color-text--primary" style="line-height: 32px;">Current Profile</h3>
+        </div>
+        <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
+          <div class="mdl-card__supporting-text">
+            <ul class="demo-list-item mdl-list">
+              {% for info in profile %}
+                <div class="mdl-grid">
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-avatar">person</i>First Name:</span>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <b><span class="mdl-list__item-primary-content">{{ info.first_name }}</span></b>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">Last Name:</span>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <b><span class="mdl-list__item-primary-content">{{ info.last_name }}</span></b>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-avatar">school</i>University:</span>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <b><span class="mdl-list__item-primary-content">{{ info.university }}</span></b>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">Degree:</span>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <b><span class="mdl-list__item-primary-content">{{ info.degree }}</span></b>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-avatar">library_books</i>Courses Taken:</span>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">Principles and Foundations:</span>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--5-col">
+                    <li class="mdl-list__item">
+                      <b><span class="mdl-list__item-primary-content">{{ info.principles_foundations }}</span></b>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--3-col"></div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">Technologies and Enablers:</span>
+                    </li>
+                  </div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <li class="mdl-list__item">
+                      <b><span class="mdl-list__item-primary-content">{{ info.technology_enablers}}</span></b>
+                    </li>
+                  </div>
+                </div>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endif %} 
+      <div id="edit_profile">
+        <div class="mdl-card__supporting-text mdl-grid">
+          <h3 class="mdl-color-text--primary" style="line-height: 32px;">Edit Profile</h3>
+        </div>
+        <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
+          <div class="mdl-card__supporting-text">
             
-            <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--3-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text"/>
-                  <label class="mdl-textfield__label">First Name</label>
-                </div>
-              </div>
-              <div class="mdl-cell mdl-cell--3-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text"/>
-                  <label class="mdl-textfield__label">Last Name</label>
-                </div>
-              </div>
-              <div class="mdl-cell mdl-cell--6-col">  
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <select class="mdl-textfield__input" name="{{ ProfileForm.university.html_name }}">
-                    {% for choice in ProfileForm.university %}
-                      {{ choice }}
-                    {% endfor %}
-                  </select>
-                  <label class="mdl-textfield__label" for="university">University</label>
-                </div>    
-              </div>
-              <div class="mdl-cell mdl-cell--3-col">
-                <p> Degree: </p>
-              </div>
-              {% for radio in ProfileForm.degree %}
+            <form method="post" action="{% url 'save-profile' %}">
+              {% csrf_token %}
+              
+              <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--3-col">
-                  {{ radio }}
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text"/>
+                    <label class="mdl-textfield__label">First Name</label>
+                  </div>
                 </div>
-              {% endfor %}
-              <div class="mdl-cell mdl-cell--3-col">
-                <p> Courses Taken: </p>
-              </div>
-              {% for course in ProfileForm.courses %}
                 <div class="mdl-cell mdl-cell--3-col">
-                  {{ course }}
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text"/>
+                    <label class="mdl-textfield__label">Last Name</label>
+                  </div>
                 </div>
-              {% endfor %}
-              <div class="mdl-cell mdl-cell--3-col"></div>
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="save_profile">SAVE</button>
-            </div>
-            {% if ProfileForm.errors %}
-              {% for field in ProfileForm %}
-                {% for error in field.errors %}
-                  <strong>{{ field.label_tag }} {{ error }}</strong>
+                <div class="mdl-cell mdl-cell--6-col">  
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <select class="mdl-textfield__input" name="{{ ProfileForm.university.html_name }}" required>
+                      {% for choice in ProfileForm.university %}
+                        {{ choice }}
+                      {% endfor %}
+                    </select>
+                    <label class="mdl-textfield__label" for="university">University</label>
+                  </div>    
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <p> Degree: </p>
+                </div>
+                {% for radio in ProfileForm.degree %}
+                  <div class="mdl-cell mdl-cell--3-col">
+                    <label for="{{ radio.id_for_label }}">
+                      {{ radio.choice_label }}
+                      <span class="radio">{{ radio.tag }}</span>
+                    </label>
+                  </div>
                 {% endfor %}
-              {% endfor %}
-            {% endif %} 
-          </form>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <p> Courses Taken: </p>
+                </div>
+                {% for checkbox in ProfileForm.courses %}
+                  <div class="mdl-cell mdl-cell--3-col">
+                    {{ checkbox }}
+                  </div>
+                {% endfor %}
+                <div class="mdl-cell mdl-cell--3-col"></div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="save_profile">SAVE</button>
+              </div>
+              {% if ProfileForm.errors %}
+                {% for field in ProfileForm %}
+                  {% for error in field.errors %}
+                    <strong>{{ field.label_tag }} {{ error }}</strong>
+                  {% endfor %}
+                {% endfor %}
+              {% endif %} 
+            </form>
+          </div>
         </div>
       </div>
       <div class="mdl-card__supporting-text mdl-grid">
