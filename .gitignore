@@ -5,3 +5,5 @@ lib/
 pip-selfcheck.json
 netsoft_create/settings.py
 netsoft_create/media
+*.pyc
+*__pycache__/
