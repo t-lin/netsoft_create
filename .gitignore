@@ -7,3 +7,4 @@ netsoft_create/settings.py
 netsoft_create/media
 *.pyc
 *__pycache__/
+*.pdf
