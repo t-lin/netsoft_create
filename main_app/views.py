@@ -53,7 +53,8 @@ def internship_profile(request):
     resumes = Resume.objects.filter(username = request.user.username)
 
     print(resumes.values())
-    profile = Profile.objects.filter(username = request.user.username).values()
+    # There should only be one object w/ the username (if not, something else is wrong)
+    profile = Profile.objects.filter(username = request.user.username).values()[0]
     print(profile)
 
     return_dict = {'UploadResumeForm': UploadResumeForm, 'resumes': resumes, 'ProfileForm': ProfileForm, 'profile': profile}
@@ -74,9 +75,13 @@ def save_profile(request):
 
         if "technologies_enablers" in request.POST.getlist("courses"):
             tech_enablers = True
+        else:
+            tech_enablers = False
 
         if "principles_foundations" in request.POST.getlist("courses"):
             princ_foundations = True
+        else:
+            princ_foundations = False
 
         profile = Profile.objects.filter(username = request.user.username)
         if profile:
@@ -133,7 +138,7 @@ def delete_resume(request):
     file_location = settings.MEDIA_ROOT+'/'+resume
     print(file_location)
     if os.path.exists(file_location):
-      os.remove(file_location)
+        os.remove(file_location)
 
     return HttpResponseRedirect("/internship/profile/")
 

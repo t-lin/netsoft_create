@@ -13,83 +13,82 @@
         <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
           <div class="mdl-card__supporting-text">
             <ul class="demo-list-item mdl-list">
-              {% for info in profile %}
-                <div class="mdl-grid">
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <span class="mdl-list__item-primary-content">
-                        <i class="material-icons mdl-list__item-avatar">person</i>First Name:</span>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <b><span class="mdl-list__item-primary-content">{{ info.first_name }}</span></b>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <span class="mdl-list__item-primary-content">Last Name:</span>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <b><span class="mdl-list__item-primary-content">{{ info.last_name }}</span></b>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <span class="mdl-list__item-primary-content">
-                        <i class="material-icons mdl-list__item-avatar">school</i>University:</span>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <b><span class="mdl-list__item-primary-content">{{ info.university }}</span></b>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <span class="mdl-list__item-primary-content">Degree:</span>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <b><span class="mdl-list__item-primary-content">{{ info.degree }}</span></b>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col">
-                    <li class="mdl-list__item">
-                      <span class="mdl-list__item-primary-content">
-                        <i class="material-icons mdl-list__item-avatar">library_books</i>Courses Taken:</span>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--4-col">
-                    <li class="mdl-list__item">
-                      <span class="mdl-list__item-primary-content">Principles and Foundations:</span>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--5-col">
-                    <li class="mdl-list__item">
-                      <b><span class="mdl-list__item-primary-content">{{ info.principles_foundations }}</span></b>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--3-col"></div>
-                  <div class="mdl-cell mdl-cell--4-col">
-                    <li class="mdl-list__item">
-                      <span class="mdl-list__item-primary-content">Technologies and Enablers:</span>
-                    </li>
-                  </div>
-                  <div class="mdl-cell mdl-cell--4-col">
-                    <li class="mdl-list__item">
-                      <b><span class="mdl-list__item-primary-content">{{ info.technology_enablers}}</span></b>
-                    </li>
-                  </div>
+              <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-avatar">person</i>First Name:</span>
+                  </li>
                 </div>
-              {% endfor %}
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <b><span class="mdl-list__item-primary-content">{{ profile.first_name }}</span></b>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">Last Name:</span>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <b><span class="mdl-list__item-primary-content">{{ profile.last_name }}</span></b>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-avatar">school</i>University:</span>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <b><span class="mdl-list__item-primary-content">{{ profile.university }}</span></b>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">Degree:</span>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <b><span class="mdl-list__item-primary-content">{{ profile.degree }}</span></b>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-avatar">library_books</i>Courses Taken:</span>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--4-col">
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">Principles and Foundations:</span>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--5-col">
+                  <li class="mdl-list__item">
+                    <b><span class="mdl-list__item-primary-content">{{ profile.principles_foundations }}</span></b>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col"></div>
+                <div class="mdl-cell mdl-cell--4-col">
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">Technologies and Enablers:</span>
+                  </li>
+                </div>
+                <div class="mdl-cell mdl-cell--4-col">
+                  <li class="mdl-list__item">
+                    <b><span class="mdl-list__item-primary-content">{{ profile.technology_enablers}}</span></b>
+                  </li>
+                </div>
+              </div>
             </ul>
           </div>
         </div>
       {% endif %} 
+
       <div id="edit_profile">
         <div class="mdl-card__supporting-text mdl-grid">
           <h3 class="mdl-color-text--primary" style="line-height: 32px;">Edit Profile</h3>
@@ -103,21 +102,34 @@
               <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--3-col">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {% if profile.first_name %}
+                    <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text" value="{{ profile.first_name }}"/>
+                    {% else %}
                     <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text"/>
+                    {% endif %}
                     <label class="mdl-textfield__label">First Name</label>
                   </div>
                 </div>
                 <div class="mdl-cell mdl-cell--3-col">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {% if profile.last_name %}
+                    <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text" value="{{ profile.last_name }}"/>
+                    {% else %}
                     <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text"/>
+                    {% endif %}
                     <label class="mdl-textfield__label">Last Name</label>
                   </div>
                 </div>
                 <div class="mdl-cell mdl-cell--6-col">  
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
                     <select class="mdl-textfield__input" name="{{ ProfileForm.university.html_name }}" required>
                       {% for choice in ProfileForm.university %}
-                        {{ choice }}
+                        {% if profile.university == choice.data.value %}
+                        <option value="{{ choice.data.value }}" selected>{{ choice.data.label }}</option>
+                        {% else %}
+                        <option value="{{ choice.data.value }}">{{ choice.data.label }}</option>
+                        {% endif %}
                       {% endfor %}
                     </select>
                     <label class="mdl-textfield__label" for="university">University</label>
@@ -130,16 +142,32 @@
                   <div class="mdl-cell mdl-cell--3-col">
                     <label for="{{ radio.id_for_label }}">
                       {{ radio.choice_label }}
-                      <span class="radio">{{ radio.tag }}</span>
+                      <span class="radio">
+                        {% if profile.degree == radio.data.value %}
+                        <input type="radio" name="degree" value="{{ radio.data.value }}" required id="{{ radio.id_for_label }}" checked>
+                        {% else %}
+                        <input type="radio" name="degree" value="{{ radio.data.value }}" required id="{{ radio.id_for_label }}">
+                        {% endif %}
+                      </span>
                     </label>
                   </div>
                 {% endfor %}
                 <div class="mdl-cell mdl-cell--3-col">
                   <p> Courses Taken: </p>
                 </div>
-                {% for checkbox in ProfileForm.courses %}
+                {% for course in ProfileForm.courses %}
                   <div class="mdl-cell mdl-cell--3-col">
-                    {{ checkbox }}
+                    <label for="{{ course.id_for_label }}">
+                      {# Django template doesn't use parentheses... so duplicate for clarity #}
+                      {% if course.data.value == "principles_foundations" and profile.principles_foundations == True%}
+                      <input type="checkbox" name="courses" value="{{ course.data.value }}" id="{{ course.id_for_label }}" checked>
+                      {% elif course.data.value == "technologies_enablers" and profile.technology_enablers == True%}
+                      <input type="checkbox" name="courses" value="{{ course.data.value }}" id="{{ course.id_for_label }}" checked>
+                      {% else %}
+                      <input type="checkbox" name="courses" value="{{ course.data.value }}" id="{{ course.id_for_label }}">
+                      {% endif %}
+                      {{ course.data.label }}
+                    </label>
                   </div>
                 {% endfor %}
                 <div class="mdl-cell mdl-cell--3-col"></div>
@@ -192,7 +220,7 @@
       </div>
       {% if resumes %}
         <div class="mdl-card__supporting-text mdl-grid">
-          <h3 class="mdl-color-text--primary" style="line-height: 32px;">Uploaded Documents</h3>
+          <h3 class="mdl-color-text--primary" style="line-height: 32px;">Uploaded Resumes</h3>
         </div>
         <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
           <div class="mdl-card__supporting-text">
@@ -201,7 +229,7 @@
                 <li>
                   {% csrf_token %}
                   <a href="{{ resume.resume.url }}">{{ resume.resume.name }}</a>
-                  <button style="height: 20px;min-width: 20px;width: 20px;" class="mdl-button mdl-js-button mdl-button--fab  mdl-button--mini-fab mdl-button--primary" onclick="delete_resume(this)" id="{{ resume.resume.name }}"><i class="material-icons">remove</i></button>
+                  <button style="height: 20px;min-width: 20px;width: 20px;" class="mdl-button mdl-js-button mdl-button--fab  mdl-button--mini-fab mdl-button--primary" onclick="delete_resume(this)" id="{{ resume.resume.name }}"><i class="material-icons">delete_forever</i></button>
                 </li>
               {% endfor %}
             </ul>
