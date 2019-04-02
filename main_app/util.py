@@ -97,7 +97,7 @@ def create_user(form):
 
     else:
         # Not really error, work on aesthetics (like diff. msgs with diff. dialogs later)
-        result = "Successfully created user!"
-        send_user_account_email(email,first_name, username,password)
+        result = "Successfully created user! Please check your e-mail for the login information."
+        send_user_account_email(email, first_name, username, password)
 
     return result

@@ -218,24 +218,64 @@
           </form>
         </div>
       </div>
+
       {% if resumes %}
-        <div class="mdl-card__supporting-text mdl-grid">
-          <h3 class="mdl-color-text--primary" style="line-height: 32px;">Uploaded Resumes</h3>
+      <div class="mdl-card__supporting-text mdl-grid">
+        <h3 class="mdl-color-text--primary" style="line-height: 32px;">Uploaded Resumes</h3>
+      </div>
+      <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
+        <div class="mdl-card__supporting-text">
+          <ul>
+            {% for resume in resumes %}
+              <li>
+                {% csrf_token %}
+                <a href="{{ resume.resume.url }}">{{ resume.resume.name }}</a>
+                <button style="height: 20px;min-width: 20px;width: 20px;" class="mdl-button mdl-js-button mdl-button--fab  mdl-button--mini-fab mdl-button--primary" onclick="delete_resume(this)" id="{{ resume.resume.name }}"><i class="material-icons">delete_forever</i></button>
+              </li>
+            {% endfor %}
+          </ul>
         </div>
-        <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
-          <div class="mdl-card__supporting-text">
-            <ul>
-              {% for resume in resumes %}
-                <li>
-                  {% csrf_token %}
-                  <a href="{{ resume.resume.url }}">{{ resume.resume.name }}</a>
-                  <button style="height: 20px;min-width: 20px;width: 20px;" class="mdl-button mdl-js-button mdl-button--fab  mdl-button--mini-fab mdl-button--primary" onclick="delete_resume(this)" id="{{ resume.resume.name }}"><i class="material-icons">delete_forever</i></button>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
+      </div>
       {% endif %} 
+
+      <!-- CHANGE PASSWORD -->
+      <div class="mdl-card__supporting-text mdl-grid">
+        <h3 class="mdl-color-text--primary" style="line-height: 32px;">Change Password</h3>
+      </div>
+      <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
+        <div class="mdl-card__supporting-text">
+            <form method="post" action="{% url 'change-pass' %}" name="change-pass">
+              {% csrf_token %}
+
+              <input type="hidden" name="change-pass-username"/>
+
+              <div class="mdl-grid">
+
+                {% for field in ChangePassForm %}
+                <div class="mdl-cell mdl-cell--3-col">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" name="{{ field.html_name}}" type="password"/>
+                    <label class="mdl-textfield__label">{{ field.label_tag }}</label>
+                  </div>
+                </div>
+                {% endfor %}
+
+                <div class="mdl-cell mdl-cell--3-col">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" name="repeat_new_password" type="password"/>
+                    <label class="mdl-textfield__label">Repeat new password:</label>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="mdl-card__actions mdl-card--border">
+                  <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="CHANGE PASSWORD" onclick="check_pass_match()"/>
+              </div>
+
+            </form>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}

@@ -21,4 +21,5 @@ urlpatterns = [
     path('upload-resume/', views.upload_resume, name="upload-resume"),
     path('delete-resume/', views.delete_resume, name="delete-resume"),
     path('save-profile/', views.save_profile, name="save-profile"),
+    path('change-pass/', views.change_pass, name="change-pass"),
 ]

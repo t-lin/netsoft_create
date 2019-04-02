@@ -57,7 +57,8 @@ def internship_profile(request):
     profile = Profile.objects.filter(username = request.user.username).values()[0]
     print(profile)
 
-    return_dict = {'UploadResumeForm': UploadResumeForm, 'resumes': resumes, 'ProfileForm': ProfileForm, 'profile': profile}
+    return_dict = {'UploadResumeForm': UploadResumeForm, 'resumes': resumes,
+            'ProfileForm': ProfileForm, 'profile': profile, 'ChangePassForm': ChangePassForm}
     return render(request,'internship/profile.html', return_dict)
 
 @login_required
@@ -111,6 +112,28 @@ def save_profile(request):
         curr_profile = Profile.objects.filter(username = request.user.username).values()
         return render(request, 'internship/profile.html', {'ProfileForm': form, 'profile': curr_profile})
 
+
+@login_required
+@require_http_methods(["POST"])
+def change_pass(request):
+    for key in request.POST:
+        print("%s: %s" %(key, request.POST[key]))
+
+    form = ChangePassForm(request.POST or None)
+    if form.is_valid():
+        old_password = form.cleaned_data.get("old_password")
+        new_password = form.cleaned_data.get("new_password")
+
+        # We technically already have user object (request.user), authenticate()
+        # is just used as an extra layer of authentication
+        user = authenticate(username=request.user.username, password=old_password)
+        if user is not None and user.is_active:
+            user.set_password(new_password)
+            user.save()
+
+        return HttpResponseRedirect("/internship/profile/")
+    else:
+        return render(request, 'internship/profile.html', {'ProfileForm': form, 'profile': curr_profile})
 
 @login_required
 @require_http_methods(["POST"])
