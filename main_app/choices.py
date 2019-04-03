@@ -6,9 +6,9 @@ UNIVERSITY_CHOICES = (
 )
 
 DEGREE_CHOICES = (
-    ("MEng.", "MEng."),
-    ("MASc.", "MASc."),
-    ("Phd.", "Phd.")
+    ("MEng", "MEng"),
+    ("MASc", "MASc"),
+    ("PhD", "PhD")
 )
 
 COURSES_CHOICES = (

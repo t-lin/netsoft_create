@@ -103,9 +103,9 @@
                 <div class="mdl-cell mdl-cell--3-col">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {% if profile.first_name %}
-                    <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text" value="{{ profile.first_name }}"/>
+                    <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text" value="{{ profile.first_name }}" required/>
                     {% else %}
-                    <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text"/>
+                    <input class="mdl-textfield__input" name="{{ ProfileForm.first_name.html_name }}" type="text" required/>
                     {% endif %}
                     <label class="mdl-textfield__label">First Name</label>
                   </div>
@@ -113,9 +113,9 @@
                 <div class="mdl-cell mdl-cell--3-col">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {% if profile.last_name %}
-                    <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text" value="{{ profile.last_name }}"/>
+                    <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text" value="{{ profile.last_name }}" required/>
                     {% else %}
-                    <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text"/>
+                    <input class="mdl-textfield__input" name="{{ ProfileForm.last_name.html_name }}" type="text" required/>
                     {% endif %}
                     <label class="mdl-textfield__label">Last Name</label>
                   </div>
