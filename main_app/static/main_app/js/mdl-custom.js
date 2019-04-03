@@ -45,7 +45,7 @@ function delete_resume($this){
 };
 
 function check_pass_match() {
-    var oldpass = $("input[name='old_password']")[0]
+    var oldpass = $("input[name='current_password']")[0]
     var newpass1 = $("input[name='new_password']")[0]
     var newpass2 = $("input[name='repeat_new_password']")[0]
 

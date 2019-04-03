@@ -6,7 +6,7 @@ class SignInForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput())
 
 class ChangePassForm(forms.Form):
-    old_password = forms.CharField(widget=forms.PasswordInput())
+    current_password = forms.CharField(widget=forms.PasswordInput())
     new_password = forms.CharField(widget=forms.PasswordInput())
 
 class CreateAccountForm(forms.Form):

@@ -116,24 +116,35 @@ def save_profile(request):
 @login_required
 @require_http_methods(["POST"])
 def change_pass(request):
+    errorMsg = None
     for key in request.POST:
         print("%s: %s" %(key, request.POST[key]))
 
     form = ChangePassForm(request.POST or None)
     if form.is_valid():
-        old_password = form.cleaned_data.get("old_password")
+        current_password = form.cleaned_data.get("current_password")
         new_password = form.cleaned_data.get("new_password")
 
         # We technically already have user object (request.user), authenticate()
         # is just used as an extra layer of authentication
-        user = authenticate(username=request.user.username, password=old_password)
-        if user is not None and user.is_active:
+        user = authenticate(username=request.user.username, password=current_password)
+        if user is None:
+            errorMsg = "Current password is incorrect"
+        elif not user.is_active:
+            # This may happen if user was deactivated by an admin while logged in
+            errorMsg = "User is deactivated"
+        else:
             user.set_password(new_password)
             user.save()
-
-        return HttpResponseRedirect("/internship/profile/")
+            return HttpResponseRedirect("/internship/profile/")
     else:
-        return render(request, 'internship/profile.html', {'ProfileForm': form, 'profile': curr_profile})
+        errorMsg = "Invalid form submitted"
+
+    # Only get here if something went wrong
+    if errorMsg:
+        messages.error(request, errorMsg)
+
+    return HttpResponseRedirect("/internship/profile/")
 
 @login_required
 @require_http_methods(["POST"])
