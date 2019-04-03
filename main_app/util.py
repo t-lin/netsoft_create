@@ -77,27 +77,33 @@ def create_user(form):
     last_name = form.cleaned_data.get('last_name')
     email = form.cleaned_data.get('email')
 
-    username = first_name+"."+last_name
+    username = email
 
-    # generate password
-    characters = string.ascii_letters + string.punctuation  + string.digits
-    password =  "".join(choice(characters) for x in range(randint(8, 16)))
-
-    # create user
-    try:
-        user = User.objects.create_user(username, email, password)
-        user.first_name = first_name
-        user.last_name = last_name
-
-        print("first_name: %s, last_name: %s, email: %s, username: %s, password: %s" %(first_name, last_name, email, username,password))
-
-        user.save()
-    except Exception as e:
-        result = "Invalid input. Try again!"
-
+    # Check if user exists
+    userExists = User.objects.filter(username=username).exists()
+    if userExists:
+        result = "An account with this e-mail already exists."
     else:
-        # Not really error, work on aesthetics (like diff. msgs with diff. dialogs later)
-        result = "Successfully created user! Please check your e-mail for the login information."
-        send_user_account_email(email, first_name, username, password)
+        # generate password
+        characters = string.ascii_letters + string.punctuation  + string.digits
+        password =  "".join(choice(characters) for x in range(randint(8, 16)))
+
+        # create user
+        try:
+            user = User.objects.create_user(username, email, password)
+            user.first_name = first_name
+            user.last_name = last_name
+
+            print("first_name: %s, last_name: %s, email: %s, password: %s" %
+                    (first_name, last_name, email, password))
+
+            user.save()
+        except Exception as e:
+            result = "Invalid input. Try again!"
+
+        else:
+            # Not really error, work on aesthetics (like diff. msgs with diff. dialogs later)
+            result = "Successfully created user! Please check your e-mail for the login information."
+            send_user_account_email(email, first_name, username, password)
 
     return result

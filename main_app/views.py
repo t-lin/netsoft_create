@@ -190,17 +190,17 @@ def signin(request):
     else:
         form = SignInForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=email, password=password)
             if user is not None:
                 if user.is_active:
                     auth_login(request, user)
                     return HttpResponseRedirect("/internship/profile/")
             else:
-                return_dict['errors'] = "Your Username and/or Password does not match! Please try again."
+                return_dict['errors'] = "Incorrect login credentials, please try again."
         else:
-            return_dict['errors'] = "Invalid input. Try again!"
+            return_dict['errors'] = "Invalid input, please try again."
 
         return render(request, 'login.html', return_dict)
 

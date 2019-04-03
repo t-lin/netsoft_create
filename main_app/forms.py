@@ -2,7 +2,7 @@ from django import forms
 from main_app.choices import *
 
 class SignInForm(forms.Form):
-    username = forms.CharField(max_length=100)
+    email = forms.EmailField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
 
 class ChangePassForm(forms.Form):
