@@ -1,6 +1,7 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
 import configparser
 
 from django.contrib.auth import authenticate
@@ -24,7 +25,7 @@ def get_account_info():
     ret_dict["password"] = config.get("email", "password")
     return ret_dict
 
-def send_email(to_addr, subject, body):
+def send_email(to_addr, subject, body, attachments = []):
     # sender information
     info = get_account_info()
     from_addr = info["from_addr"]
@@ -39,7 +40,14 @@ def send_email(to_addr, subject, body):
     msg['To'] = to_addr
     msg['Subject'] = subject
 
-    body = body
+    # Attach any files
+    for attachment in attachments:
+        with attachment.open("rb") as openFile:
+            part = MIMEApplication(openFile.read(), Name=attachment.name)
+
+        part['Content-Disposition'] = 'attachment; filename="%s"' % attachment.name
+        msg.attach(part)
+
     msg.attach(MIMEText(body, 'plain'))
     text = msg.as_string()
     server.sendmail(from_addr, to_addr, text)

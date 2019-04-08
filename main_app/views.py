@@ -47,12 +47,40 @@ def under_construction(request):
 
 ########## INTERNSHIP PORTAL STUFF ##########
 
+def internship_register(request):
+    return_dict = {'InternshipRegisterForm': InternshipRegisterForm}
+    return render(request, 'register.html', return_dict)
+
+@require_http_methods(["POST"])
+def internship_submit_reg(request):
+    form = InternshipRegisterForm(request.POST, request.FILES)
+    if form.is_valid():
+        subject = "NetSoft CREATE Internship Application"
+        body = "First name: %s\n" % request.POST['first_name']
+        body += "Last name: %s\n" % request.POST['last_name']
+        body += "Degree: %s\n" % request.POST['degree']
+        body += "University: %s\n" % request.POST['university']
+        body += "Courses taken:\n"
+        coursesList = request.POST.getlist('courses')
+        for course in coursesList:
+            # form['courses'].field.choices returns list of tuples from choices.py
+            for formCourse in form['courses'].field.choices:
+                if course == formCourse[0]:
+                    body += "  - %s\n" % formCourse[1]
+
+        util.send_email(<PUT YOUR E-MAIL HERE>, subject, body, [request.FILES['resume']])
+    else:
+        print("Post form is:")
+        print(request.POST)
+        return HttpResponseRedirect("/internship/profile/")
+
+    return render(request, 'submit_success.html')
+
 @login_required
 def internship_profile(request):
 
     resumes = Resume.objects.filter(username = request.user.username)
 
-    print(resumes.values())
     # There should only be one object w/ the username (if not, something else is wrong)
     profile = Profile.objects.filter(username = request.user.username).values()[0]
     print(profile)
@@ -178,7 +206,10 @@ def delete_resume(request):
 
 
 def signin(request):
+    return HttpResponseRedirect("/internship/register/")
 
+    # Not used for now, just using simple form.
+    # Keeping code here for the future.
     return_dict = {'signInForm': SignInForm, 'createAccountForm': CreateAccountForm}
 
     if request.user.is_authenticated:

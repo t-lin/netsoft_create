@@ -62,3 +62,37 @@ function check_pass_match() {
         $("form[name='change-pass']")[0].submit();
     }
 }
+
+function check_intern_submit() {
+    var submitOK = true;
+    var firstName = $("input[name='first_name']")[0]
+    var lastName = $("input[name='last_name']")[0]
+    if (firstName.value.length == 0 || lastName.value.length == 0) {
+        submitOK = false;
+        alert("ERROR: All name fields are required to be non-empty")
+    }
+
+    var university = $("select[name='university']")[0]
+
+    var degrees = $("input[name='degree']")
+    if (submitOK && !degrees[0].checked && !degrees[1].checked && !degrees[2].checked) {
+        submitOK = false;
+        alert("ERROR: Must specify your current degree")
+    }
+
+    var coursesTaken = $("input[name='courses']")
+    if (submitOK && !coursesTaken[0].checked && !coursesTaken[1].checked) {
+        submitOK = false;
+        alert("ERROR: Must specify which courses you have taken")
+    }
+
+    var resume = $("input[name='resume']")[0]
+    if (submitOK && resume.files.length == 0) {
+        submitOK = false;
+        alert("ERROR: Must attach a resume")
+    }
+
+    if (submitOK) {
+        $("form[name='internship-form-submit']")[0].submit();
+    }
+}
