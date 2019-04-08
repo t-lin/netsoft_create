@@ -1,9 +1,13 @@
 from django.db import models
 from main_app.choices import *
 
+# File will be uploaded to MEDIA_ROOT/<username>/resume.pdf
+def user_directory_path(instance, filename):
+    return "resumes/%s/resume.pdf" % (instance.username)
+
 # Create your models here.
 class Resume(models.Model):
-    resume = models.FileField(upload_to='resumes/%Y/%m/%d')
+    resume = models.FileField(upload_to=user_directory_path)
     username = models.CharField(max_length=150,default='someone')
 
 # Profile model

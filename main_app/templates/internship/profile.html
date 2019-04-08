@@ -221,7 +221,7 @@
 
       {% if resumes %}
       <div class="mdl-card__supporting-text mdl-grid">
-        <h3 class="mdl-color-text--primary" style="line-height: 32px;">Uploaded Resumes</h3>
+        <h3 class="mdl-color-text--primary" style="line-height: 32px;">Uploaded Resume</h3>
       </div>
       <div class="mdl-card__supporting-text mdl-grid mdl-shadow--8dp" style="background-color:white;">
         <div class="mdl-card__supporting-text">
@@ -229,7 +229,7 @@
             {% for resume in resumes %}
               <li>
                 {% csrf_token %}
-                <a href="{{ resume.resume.url }}">{{ resume.resume.name }}</a>
+                <a href="{{ resume.resume.url }}">resume.pdf</a>
                 <button style="height: 20px;min-width: 20px;width: 20px;" class="mdl-button mdl-js-button mdl-button--fab  mdl-button--mini-fab mdl-button--primary" onclick="delete_resume(this)" id="{{ resume.resume.name }}"><i class="material-icons">delete_forever</i></button>
               </li>
             {% endfor %}
